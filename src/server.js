@@ -111,6 +111,7 @@ app.use('/uploads', express.static('uploads'));
 
 app.use('/api/product', productRoutes); // Use product routes
 
+
 app.get('/', (req, res) => {
     res.send('App is successfully run');
 });

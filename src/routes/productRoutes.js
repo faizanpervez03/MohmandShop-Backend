@@ -1,6 +1,6 @@
 // import { Product } from "../models/Product.model.js";
 import { Router } from "express";
-import { createProduct, getAllProducts, } from "../controllers/productControllers.js";
+import { createProduct, getAllProducts,  } from "../controllers/productControllers.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { upload } from "../middlewares/multer.middleware.js"
 
@@ -20,5 +20,5 @@ router.route('/addproduct').post((
     asyncHandler(createProduct))
 
 router.route('/products').get(asyncHandler(getAllProducts));
-
+// router.get('/product-details/:id', productDetail)
 export default router

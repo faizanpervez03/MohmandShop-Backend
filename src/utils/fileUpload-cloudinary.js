@@ -1,4 +1,4 @@
-/*
+
 
 import { v2 as cloudinary } from 'cloudinary';
 import exp from 'constants';
@@ -29,5 +29,5 @@ const uploadFileCloudinary = async (localFilePath) => {
 
 export { uploadFileCloudinary }
 
-*/
+
 
