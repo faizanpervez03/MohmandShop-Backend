@@ -1,170 +1,233 @@
-import { Product } from "../models/Product.model.js";
-import { ApiError } from "../utils/ApiError.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
 
-import path from "path"
+// import { Product } from "../models/Product.model.js";
+// import { ApiError } from "../utils/ApiError.js";
+// import { ApiResponse } from "../utils/ApiResponse.js";
 
-// da da createproduct area da
-const createProduct = async (req, res) => {
-    console.log(req.body)
-    const { title, description, price, stock, category, imageUrl } = req.body;
+// import path from "path"
 
-    // validation
-    if (
-        [title, description, price, stock, imageUrl].some((field) =>
-            field?.trim() === "")
-    ) {
-        throw new ApiError(400, "All fields are required")
-    }
+// // da da createproduct area da
+// const createProduct = async (req, res) => {
+//     console.log(req.body)
+//     const { title, description, price, stock, category, imageUrl } = req.body;
 
-
-    // ------------------------------------------------------------------
-    // image file handling
-    const imageUrlLocalPath = req.files?.imageUrl[0]?.path
-    console.log(imageUrlLocalPath)
-    if (!imageUrlLocalPath) {
-        throw new ApiError(400, "imageUrl is required")
-    }
+//     // validation
+//     if (
+//         [title, description, price, stock, imageUrl].some((field) =>
+//             field?.trim() === "")
+//     ) {
+//         throw new ApiError(400, "All fields are required")
+//     }
 
 
-
-    // const image = `/uploads/${req.files.imageUrl[0].filename}`;
-    const image = `/uploads/${path.basename(imageUrlLocalPath)}`;
-
-   
-
-    // create Product object, create entry in database
-    const product = await Product.create({
-        title,
-        description,
-        price,
-        stock,
-        category,
-        imageUrl: imageUrlLocalPath
-    })
-
-    const createdProduct = await Product.findById(product._id)
-    
-    if (!createdProduct) {
-        throw new ApiError(500, "Something went wrong while created a product" )
-    }   
-
-    return res.status(201).json(
-        new ApiResponse(200, createdProduct, "Product created successfully")
-    )
-    
-    // ------------------------------------------------------------------
-    
-
-}
-
-
-// da da GetallProduct area da
-
-const getAllProducts = async (req, res, next) => {
-    try {
-        const products = await Product.find(); // Fetch all products
-        res.status(200).json(new ApiResponse(200, products, "Product fetch successfully"))
-    } catch (error) {
-        next(new ApiError(500, "Failed to fetch products", [error.message]))
-    }
-};
+//     // ------------------------------------------------------------------
+//     // image file handling
+//     const imageUrlLocalPath = req.files?.imageUrl[0]?.path
+//     console.log(imageUrlLocalPath)
+//     if (!imageUrlLocalPath) {
+//         throw new ApiError(400, "imageUrl is required")
+//     }
 
 
 
-
-export { createProduct, getAllProducts }
-
-
-// ==============================================
-
-
-/*
-
-import { Product } from "../models/Product.model.js";
-import { ApiError } from "../utils/ApiError.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
-
-import path from "path"
-
-// da da createproduct area da
-const createProduct = async (req, res) => {
-    console.log(req.body)
-    const { title, description, price, stock, category, imageUrl } = req.body;
-
-    // validation
-    if (
-        [title, description, price, stock, imageUrl].some((field) =>
-            field?.trim() === "")
-    ) {
-        throw new ApiError(400, "All fields are required")
-    }
-
-
-    // ------------------------------------------------------------------
-    // image file handling
-    const imageUrlLocalPath = req.files?.imageUrl[0]?.path
-    console.log(imageUrlLocalPath)
-    if (!imageUrlLocalPath) {
-        throw new ApiError(400, "imageUrl is required")
-    }
-
-
-
-    // const image = `/uploads/${req.files.imageUrl[0].filename}`;
-    const image = `/uploads/${path.basename(imageUrlLocalPath)}`;
+//     // const image = `/uploads/${req.files.imageUrl[0].filename}`;
+//     const image = `/uploads/${path.basename(imageUrlLocalPath)}`;
 
    
 
-    // create Product object, create entry in database
-    const product = await Product.create({
-        title,
-        description,
-        price,
-        stock,
-        category,
-        imageUrl: imageUrlLocalPath
-    })
+//     // create Product object, create entry in database
+//     const product = await Product.create({
+//         title,
+//         description,
+//         price,
+//         stock,
+//         category,
+//         imageUrl: imageUrlLocalPath
+//     })
 
-    const createdProduct = await Product.findById(product._id)
+//     const createdProduct = await Product.findById(product._id)
     
-    if (!createdProduct) {
-        throw new ApiError(500, "Something went wrong while created a product" )
-    }   
+//     if (!createdProduct) {
+//         throw new ApiError(500, "Something went wrong while created a product" )
+//     }   
 
-    return res.status(201).json(
-        new ApiResponse(200, createdProduct, "Product created successfully")
-    )
+//     return res.status(201).json(
+//         new ApiResponse(200, createdProduct, "Product created successfully")
+//     )
     
-    // ------------------------------------------------------------------
+//     // ------------------------------------------------------------------
     
 
-}
+// }
 
 
-// da da GetallProduct area da
+// // da da GetallProduct area da
 
-const getAllProducts = async (req, res, next) => {
+// const getAllProducts = async (req, res, next) => {
+//     try {
+//         const products = await Product.find(); // Fetch all products
+//         res.status(200).json(new ApiResponse(200, products, "Product fetch successfully"))
+//     } catch (error) {
+//         next(new ApiError(500, "Failed to fetch products", [error.message]))
+//     }
+// };
+
+// const productDetail = async (req, res, next) => {
+//     console.log(`run sho`);
+    
+//     return ["ali", "hamza"]
+    
+// }
+
+
+
+// export { createProduct, getAllProducts, productDetail }
+
+// -------------------------------------------------------------
+
+
+// import { Product } from "../models/Product.model.js";
+// import { ApiError } from "../utils/ApiError.js";
+// import { ApiResponse } from "../utils/ApiResponse.js";
+// import { uploadFileCloudinary } from "../utils/fileUpload-cloudinary.js";
+
+// // da da createproduct area da
+// const createProduct = async (req, res) => {
+//     console.log(req.body)
+//     const { title, description, price, stock, category, imageUrl } = req.body;
+
+//     // validation
+//     if (
+//         [title, description, price, stock, imageUrl].some((field) =>
+//             field?.trim() === "")
+//     ) {
+//         throw new ApiError(400, "All fields are required")
+//     }
+
+
+//     // ------------------------------------------------------------------
+//     // image file handling
+//     const imageUrlLocalPath = req.files?.imageUrl[0]?.path
+
+//     if (!imageUrlLocalPath) {
+//         throw new ApiError(400, "imageUrl is required")
+//     }
+
+//     // image file uploading on cloundinary
+//     const image = await uploadFileCloudinary(imageUrlLocalPath)
+
+//     if (!image) {
+//         throw new ApiError(400, "image is required")
+//     }
+
+//     // create Product object, create entry in database
+//     const product = await Product.create({
+//         title,
+//         description,
+//         price,
+//         stock,
+//         category,
+//         imageUrl: image.url
+//     })
+
+//     const createdProduct = await Product.findById(product._id)
+    
+//     if (!createdProduct) {
+//         throw new ApiError(500, "Something went wrong while created a product" )
+//     }   
+
+//     return res.status(201).json(
+//         new ApiResponse(200, createdProduct, "Product created successfully")
+//     )
+    
+//     // ------------------------------------------------------------------
+   
+
+// }
+
+
+// // da da GetallProduct area da
+
+// const getAllProducts = async (req, res, next) => {
+//     try {
+//         const products = await Product.find(); // Fetch all products
+//         res.status(200).json(new ApiResponse(200, products, "Product fetch successfully"))
+//     } catch (error) {
+//         next(new ApiError(500, "Failed to fetch products", [error.message]))
+//     }
+// };
+
+
+
+
+// export { createProduct, getAllProducts }
+
+// ------------------------------------------
+
+import { Product } from "../models/Product.model.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { uploadFileCloudinary } from "../utils/fileUpload-cloudinary.js";
+
+const createProduct = async (req, res, next) => {
     try {
-        const products = await Product.find(); // Fetch all products
-        res.status(200).json(new ApiResponse(200, products, "Product fetch successfully"))
+        console.log("Request Body:", req.body);
+
+        const { title, description, price, stock, category } = req.body;
+
+        // Validate required fields
+        if (
+            [title, description, price, stock].some((field) =>
+                field?.trim() === ""
+            )
+        ) {
+            throw new ApiError(400, "All fields are required");
+        }
+
+        // Ensure the file is uploaded
+        const imageUrlLocalPath = req.files?.imageUrl?.[0]?.path;
+        if (!imageUrlLocalPath) {
+            throw new ApiError(400, "imageUrl is required");
+        }
+
+        // Upload the image to Cloudinary
+        const uploadedImage = await uploadFileCloudinary(imageUrlLocalPath);
+        if (!uploadedImage) {
+            throw new ApiError(400, "Image upload failed");
+        }
+
+        // Create the product in the database
+        const product = await Product.create({
+            title,
+            description,
+            price,
+            stock,
+            category,
+            imageUrl: uploadedImage.url,
+        });
+
+        const createdProduct = await Product.findById(product._id);
+        if (!createdProduct) {
+            throw new ApiError(500, "Failed to create product");
+        }
+
+        return res.status(201).json(
+            new ApiResponse(201, createdProduct, "Product created successfully")
+        );
     } catch (error) {
-        next(new ApiError(500, "Failed to fetch products", [error.message]))
+        next(error);
     }
 };
 
-const productDetail = async (req, res, next) => {
-    console.log(`run sho`);
-    
-    return ["ali", "hamza"]
-    
-}
+// Fetch all products
+const getAllProducts = async (req, res, next) => {
+    try {
+        const products = await Product.find();
+        res.status(200).json(
+            new ApiResponse(200, products, "Products fetched successfully")
+        );
+    } catch (error) {
+        next(new ApiError(500, "Failed to fetch products", [error.message]));
+    }
+};
 
-
-
-export { createProduct, getAllProducts, productDetail }
-
-
-
-
-*/
+export { createProduct, getAllProducts };
