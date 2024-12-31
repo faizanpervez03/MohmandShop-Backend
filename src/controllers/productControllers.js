@@ -230,4 +230,21 @@ const getAllProducts = async (req, res, next) => {
     }
 };
 
-export { createProduct, getAllProducts };
+const getProductDetails = async (req,res, next) =>{
+    const id = req.params.id
+    try {
+        const productDetails = await Product.findOne({_id : id})
+        if (productDetails){
+            return res.status(200).json(productDetails)
+        }else {
+            return res.status(404).json({error: "product is not found"})
+        }
+    }catch (error){
+        // next(new ApiError(500, "Failed to fetch products", [error.message]));
+        return res.status(500).json(error.message)
+    }
+    
+    // return res.json(id)
+}
+
+export { createProduct, getAllProducts, getProductDetails };
