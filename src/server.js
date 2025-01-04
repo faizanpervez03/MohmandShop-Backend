@@ -16,7 +16,8 @@ connectDB();
 const app = express();
 
 app.use(cors({
-    origin: "*"
+    // origin: "*"
+    origin: "https://mohmand-shop.vercel.app/"
 }));
 
 // Middleware to parse JSON bodies
