@@ -17,7 +17,9 @@ const app = express();
 
 app.use(cors({
     // origin: "*"
-    origin: "https://mohmand-shop.vercel.app/"
+    origin: "https://mohmand-shop.vercel.app/",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, // Allows cookies or authentication headers
 }));
 
 // Middleware to parse JSON bodies
