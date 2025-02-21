@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
 import productRoutes from "./routes/productRoutes.js"; // Import routes
-
+import orderRoutes from "./routes/orderRoutes.js"
 
 
 
@@ -29,7 +29,7 @@ app.use('/uploads', express.static('uploads'));
 
 
 app.use('/api/product', productRoutes); // Use product routes
-
+app.use('/api/order', orderRoutes);
 
 app.get('/', (req, res) => {
     res.send('App is successfully run');
